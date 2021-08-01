@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "811686269947",
+    "project_id": "wisher-ba8c6",
+    "storage_bucket": "wisher-ba8c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811686269947:android:56535259329b9fa9b6b15e",
+        "android_client_info": {
+          "package_name": "com.nbhatm.wisher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "811686269947-4p9nqrqhni35mm9tf8f2bbtiso7ot6oh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsFfpL6NfAy631PUpOs3kWSTLkyyCgBcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "811686269947-4p9nqrqhni35mm9tf8f2bbtiso7ot6oh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
