@@ -14,9 +14,9 @@ class FirebaseImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(Styles.imagesMargin),
+      margin: const EdgeInsets.all(Styles.margin7),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Styles.circularRadius),
+        borderRadius: BorderRadius.circular(Styles.circularRadius22),
         image: DecorationImage(
           image: imageProvider,
           fit: BoxFit.scaleDown,

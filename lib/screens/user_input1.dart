@@ -30,7 +30,6 @@ class UserInputScreen1 extends StatefulWidget {
   final ImageProvider imageProvider;
   final String directoryName;
   final String fileName;
-
   final String imageFileName;
   final Uint8List imageUInt8list;
 
@@ -40,7 +39,6 @@ class UserInputScreen1 extends StatefulWidget {
 
 class _UserInputScreen1State extends State<UserInputScreen1> {
   final GlobalKey _globalKey = GlobalKey();
-  bool mouseEnter = false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +70,8 @@ class _UserInputScreen1State extends State<UserInputScreen1> {
                             ..._getMessageCards(stateStore, context),
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                vertical: Styles.margin * 3,
-                                horizontal: Styles.margin,
+                                vertical: Styles.margin20 * 3,
+                                horizontal: Styles.margin20,
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 30.0),
@@ -84,51 +82,58 @@ class _UserInputScreen1State extends State<UserInputScreen1> {
                                         Theme.of(context).textTheme.bodyText1,
                                   ),
                                   onPressed: () async {
+                                    stateStore.resetShowRotateIcon();
                                     Uint8List imageUInt8list =
                                         await _capturePng(context);
                                     if (imageUInt8list != null) {
                                       showDialog(
+                                        barrierDismissible: false,
                                         context: context,
                                         builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            contentPadding: EdgeInsets.zero,
-                                            content: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Image.memory(imageUInt8list),
+                                          return WillPopScope(
+                                            onWillPop: () async => false,
+                                            child: AlertDialog(
+                                              contentPadding: EdgeInsets.zero,
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Image.memory(imageUInt8list),
+                                                ],
+                                              ),
+                                              actions: [
+                                                ElevatedButton(
+                                                  child: Text(
+                                                    'Close',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyText1,
+                                                  ),
+                                                  onPressed: () async {
+                                                    stateStore
+                                                        .setShowRotateIcon();
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                                ElevatedButton(
+                                                  child: Text(
+                                                    'Share',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyText1,
+                                                  ),
+                                                  onPressed: () async {
+                                                    String directoryName =
+                                                        await ReadOrWriteImages
+                                                            .getFilePath(widget
+                                                                .fileName);
+                                                    Share.shareFiles(
+                                                        [directoryName],
+                                                        text:
+                                                            'Shared from Wisher App');
+                                                  },
+                                                ),
                                               ],
                                             ),
-                                            actions: [
-                                              ElevatedButton(
-                                                child: Text(
-                                                  'Reset',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1,
-                                                ),
-                                                onPressed: () async {
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                              ElevatedButton(
-                                                child: Text(
-                                                  'Share',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1,
-                                                ),
-                                                onPressed: () async {
-                                                  String directoryName =
-                                                      await ReadOrWriteImages
-                                                          .getFilePath(
-                                                              widget.fileName);
-                                                  Share.shareFiles(
-                                                      [directoryName],
-                                                      text:
-                                                          'Shared from Wisher App');
-                                                },
-                                              ),
-                                            ],
                                           );
                                         },
                                       );
@@ -185,7 +190,7 @@ class _UserInputScreen1State extends State<UserInputScreen1> {
         aspectRatio: 4 / 3,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: Styles.padding,
+            vertical: Styles.padding10,
           ),
           child: Stack(
             alignment: Alignment.center,
@@ -206,28 +211,77 @@ class _UserInputScreen1State extends State<UserInputScreen1> {
                               message.messageOffset.dy + details.delta.dy);
                           stateStore.updateOffset(message, newOffset);
                         },
-                        child: Transform.rotate(
-                          angle: message.messageFinalAngle,
-                          child: Column(
-                            children: [
-                              InkWell(
-                                child: Text(
-                                  message.messageText,
-                                  textAlign: TextAlign.center,
-                                  softWrap: true,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
-                                        color: message.messageColor,
-                                        fontSize: message
-                                            .messageFont, //width * 0.087,
-                                        fontFamily: Constants.fontFamily,
-                                      ),
-                                ),
+                        child: Column(
+                          children: [
+                            Transform.rotate(
+                              angle: message.messageFinalAngle,
+                              child: Text(
+                                message.messageText,
+                                textAlign: TextAlign.center,
+                                softWrap: true,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
+                                      color: message.messageColor,
+                                      fontSize:
+                                          message.messageFont, //width * 0.087,
+                                      fontFamily: Constants.fontFamily,
+                                    ),
                               ),
-                            ],
-                          ),
+                            ),
+                            if (message.showRotateIcon)
+                              Transform.rotate(
+                                angle: message.messageFinalAngle,
+                                child: Container(
+                                  height: 40.0,
+                                  width: 40.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(22.0),
+                                    color: Colors.white,
+                                  ),
+                                  child: LayoutBuilder(
+                                    builder: (context, constraints) {
+                                      return GestureDetector(
+                                        behavior: HitTestBehavior.translucent,
+                                        onPanStart: (details) {
+                                          Offset centerOfGestureDetector =
+                                              Offset(constraints.maxWidth / 2,
+                                                  constraints.maxHeight / 2);
+                                          final touchPositionFromCenter =
+                                              details.localPosition -
+                                                  centerOfGestureDetector;
+                                          stateStore.updateOffsetAngle(
+                                              message,
+                                              touchPositionFromCenter
+                                                      .direction -
+                                                  message.messageFinalAngle);
+                                        },
+                                        onPanUpdate: (details) {
+                                          Offset centerOfGestureDetector =
+                                              Offset(constraints.maxWidth / 2,
+                                                  constraints.maxHeight / 2);
+                                          final touchPositionFromCenter =
+                                              details.localPosition -
+                                                  centerOfGestureDetector;
+                                          setState(() {
+                                            stateStore.updateFinalAngle(
+                                                message,
+                                                touchPositionFromCenter
+                                                        .direction -
+                                                    message.messageOffsetAngle);
+                                          });
+                                        },
+                                        child: const Icon(
+                                          Icons.refresh,
+                                          size: 30.0,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              )
+                          ],
                         ),
                       ),
                     ),

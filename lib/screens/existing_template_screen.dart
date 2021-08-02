@@ -12,7 +12,7 @@ class Templates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: Styles.padding),
+      padding: const EdgeInsets.only(top: Styles.padding10),
       child: GridView.builder(
         physics: const ScrollPhysics(),
         shrinkWrap: true,

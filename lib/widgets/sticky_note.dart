@@ -23,12 +23,12 @@ class StickyNote extends StatelessWidget {
           child: Container(
             width: MediaQuery.of(context).size.width / 2,
             height: Styles.noteHeight,
-            margin: const EdgeInsets.all(Styles.margin),
-            padding: const EdgeInsets.all(Styles.padding),
+            margin: const EdgeInsets.all(Styles.margin20),
+            padding: const EdgeInsets.all(Styles.padding10),
             decoration: BoxDecoration(
               color: color,
               borderRadius: const BorderRadius.all(
-                Radius.circular(Styles.circularRadius),
+                Radius.circular(Styles.circularRadius22),
                 //bottomLeft: Radius.circular(Styles.circularRadius),
               ),
             ),
@@ -46,7 +46,7 @@ class StickyNote extends StatelessWidget {
         Align(
           alignment: Alignment.topCenter,
           child: Padding(
-            padding: const EdgeInsets.all(Styles.pinPadding),
+            padding: const EdgeInsets.all(Styles.padding8),
             child: Image.asset(
               Constants.pinImagePath,
               width: Styles.pinWidth,

@@ -50,7 +50,7 @@ class _MessageCardState extends State<MessageCard> {
 
     var stateStore = Provider.of<StateStore>(context);
     return Padding(
-      padding: const EdgeInsets.all(Styles.padding),
+      padding: const EdgeInsets.all(Styles.padding10),
       child: Column(
         children: [
           Row(
@@ -197,55 +197,6 @@ class _MessageCardState extends State<MessageCard> {
               const SizedBox(
                 width: 20.0,
               ),
-              Container(
-                height: 50.0,
-                width: 50.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22.0),
-                  color: Colors.grey,
-                ),
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onPanStart: (details) {
-                        Offset centerOfGestureDetector = Offset(
-                            constraints.maxWidth / 2,
-                            constraints.maxHeight / 2);
-                        final touchPositionFromCenter =
-                            details.localPosition - centerOfGestureDetector;
-                        stateStore.updateOffsetAngle(
-                            stateStore.messageModelsList[widget.index],
-                            touchPositionFromCenter.direction -
-                                stateStore.messageModelsList[widget.index]
-                                    .messageFinalAngle);
-                      },
-                      onPanUpdate: (details) {
-                        Offset centerOfGestureDetector = Offset(
-                            constraints.maxWidth / 2,
-                            constraints.maxHeight / 2);
-                        final touchPositionFromCenter =
-                            details.localPosition - centerOfGestureDetector;
-                        setState(() {
-                          stateStore.updateFinalAngle(
-                              stateStore.messageModelsList[widget.index],
-                              touchPositionFromCenter.direction -
-                                  stateStore.messageModelsList[widget.index]
-                                      .messageOffsetAngle);
-                        });
-                      },
-                      child: Transform.rotate(
-                        angle: stateStore
-                            .messageModelsList[widget.index].messageFinalAngle,
-                        child: const Icon(
-                          Icons.settings,
-                          size: 40.0,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              )
             ],
           ),
         ],
@@ -256,11 +207,8 @@ class _MessageCardState extends State<MessageCard> {
   InputDecoration _getInputDecoration() {
     return const InputDecoration(
       counterText: '',
-      contentPadding: EdgeInsets.only(
-        top: Styles.inputContentPadding,
-        bottom: Styles.inputContentPadding,
-        left: Styles.inputContentPadding,
-        right: Styles.inputContentPadding,
+      contentPadding: EdgeInsets.all(
+        Styles.padding8,
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(

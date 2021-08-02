@@ -11,9 +11,9 @@ class PlaceHolderImageWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(Styles.circularRadius),
+        borderRadius: BorderRadius.circular(Styles.circularRadius22),
       ),
-      margin: const EdgeInsets.all(Styles.imagesMargin),
+      margin: const EdgeInsets.all(Styles.margin7),
     );
   }
 }

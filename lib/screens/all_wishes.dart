@@ -20,29 +20,30 @@ class Wishes extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 6,
                 decoration: BoxDecoration(
-                  color: const Color(0xffbe0000).withOpacity(0.8),
+                  color: Styles.wisherBkgColor,
                   borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(32.0),
-                    bottomLeft: Radius.circular(32.0),
+                    bottomRight: Radius.circular(Styles.circularRadius32),
+                    bottomLeft: Radius.circular(Styles.circularRadius32),
                   ),
                 ),
                 child: const Center(
                   child: Text(
-                    'Wisher',
+                    Constants.appTitle,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 32.0,
+                      fontSize: Styles.fontSize32,
                     ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: Styles.padding),
+                padding: const EdgeInsets.only(top: Styles.padding10),
                 child: GridView.builder(
                   physics: const ScrollPhysics(),
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
+                    crossAxisCount: 2,
+                  ),
                   itemCount: Constants.wishes.length,
                   itemBuilder: (BuildContext ctx, index) {
                     return StickyNote(

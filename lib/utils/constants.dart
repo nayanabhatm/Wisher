@@ -35,9 +35,6 @@ class Constants {
 
   static const String fontFamily = 'Courgette';
 
-  static const String message1 = 'Message1 ';
-  static const String message2 = 'Message2 ';
-
   static const List<Color> colorsList = [
     Colors.redAccent,
     Colors.pinkAccent,
@@ -93,4 +90,8 @@ class Constants {
     36,
     38
   ];
+
+  static const Offset initialOffset = Offset(10, 10);
+  static const double initialFontSize = 26.0;
+  static const double initialAngel = 0.0;
 }

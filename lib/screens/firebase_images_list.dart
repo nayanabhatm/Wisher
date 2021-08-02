@@ -54,43 +54,44 @@ class LoadFirebaseImages extends StatelessWidget {
                 } else {
                   return ListView(
                     children: firebaseImageMap.entries
-                        .map((image) => AspectRatio(
-                              aspectRatio: 4 / 3,
-                              child: CachedNetworkImage(
-                                imageUrl: image.value,
-                                imageBuilder: (context, imageProvider) =>
-                                    InkWell(
-                                  hoverColor:
-                                      Theme.of(context).colorScheme.secondary,
-                                  splashColor:
-                                      Theme.of(context).colorScheme.secondary,
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return UserInputScreen1(
-                                            imageUrl: image.value,
-                                            imageProvider: imageProvider,
-                                            directoryName: appBarText,
-                                            fileName: image.key,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  child: FirebaseImage(
-                                    imageUrl: image.value,
-                                    imageProvider: imageProvider,
-                                  ),
+                        .map(
+                          (image) => AspectRatio(
+                            aspectRatio: 4 / 3,
+                            child: CachedNetworkImage(
+                              imageUrl: image.value,
+                              imageBuilder: (context, imageProvider) => InkWell(
+                                hoverColor:
+                                    Theme.of(context).colorScheme.secondary,
+                                splashColor:
+                                    Theme.of(context).colorScheme.secondary,
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return UserInputScreen1(
+                                          imageUrl: image.value,
+                                          imageProvider: imageProvider,
+                                          directoryName: appBarText,
+                                          fileName: image.key,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: FirebaseImage(
+                                  imageUrl: image.value,
+                                  imageProvider: imageProvider,
                                 ),
-                                fadeInCurve: Curves.easeIn,
-                                placeholder: (context, url) =>
-                                    const PlaceHolderImageWidget(),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
                               ),
-                            ))
+                              fadeInCurve: Curves.easeIn,
+                              placeholder: (context, url) =>
+                                  const PlaceHolderImageWidget(),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            ),
+                          ),
+                        )
                         .toList(),
                   );
                 }

@@ -6,10 +6,6 @@ class StateStore extends ChangeNotifier {
     MessageModel(
       messageText: 'Message',
       messageColor: Colors.blue,
-      messageOffset: const Offset(10, 10),
-      messageFont: 26.0,
-      messageFinalAngle: 0.0,
-      messageOffsetAngle: 0.0,
     ),
   ];
 
@@ -52,6 +48,20 @@ class StateStore extends ChangeNotifier {
 
   void updateOffsetAngle(MessageModel messageModel, double offsetAngle) {
     messageModel.messageOffsetAngle = offsetAngle;
+    notifyListeners();
+  }
+
+  void resetShowRotateIcon() {
+    for (MessageModel messageModel in messageModelsList) {
+      messageModel.showRotateIcon = false;
+    }
+    notifyListeners();
+  }
+
+  void setShowRotateIcon() {
+    for (MessageModel messageModel in messageModelsList) {
+      messageModel.showRotateIcon = true;
+    }
     notifyListeners();
   }
 }

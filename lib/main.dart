@@ -40,7 +40,7 @@ class StickyNoteApp extends StatelessWidget {
         ),
       ),
       color: Colors.white,
-      home: Wishes(),
+      home: const Wishes(),
     );
   }
 }

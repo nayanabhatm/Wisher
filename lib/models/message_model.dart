@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:wisher/utils/constants.dart';
 
 class MessageModel {
   MessageModel({
     this.messageColor,
     this.messageText,
-    this.messageOffset,
-    this.messageFont,
-    this.messageFinalAngle,
-    this.messageOffsetAngle,
-    this.textEditingController,
+    this.messageOffset = Constants.initialOffset,
+    this.messageFont = Constants.initialFontSize,
+    this.messageFinalAngle = Constants.initialAngel,
+    this.messageOffsetAngle = Constants.initialAngel,
+    this.showRotateIcon = true,
   });
 
   Color messageColor;
@@ -17,5 +18,5 @@ class MessageModel {
   double messageFont;
   double messageFinalAngle;
   double messageOffsetAngle;
-  TextEditingController textEditingController;
+  bool showRotateIcon;
 }
