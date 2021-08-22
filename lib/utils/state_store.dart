@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:wisher/models/message_model.dart';
+import 'package:wisher/utils/constants.dart';
+import 'package:wisher/utils/widget_style.dart';
 
 class StateStore extends ChangeNotifier {
   final List<MessageModel> _messageModelsList = [
     MessageModel(
-      messageText: 'Message',
-      messageColor: Colors.blue,
+      messageText: Constants.message,
+      messageColor: Styles.secondaryColor,
     ),
   ];
 

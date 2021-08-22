@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wisher/utils/widget_style.dart';
 
 class ErrorCard extends StatelessWidget {
   const ErrorCard({
@@ -22,11 +23,11 @@ class ErrorCard extends StatelessWidget {
             children: [
               if (iconData != null)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
+                  padding: const EdgeInsets.only(bottom: Styles.padding10),
                   child: Icon(
                     iconData,
-                    size: 30.0,
-                    color: Colors.blueGrey,
+                    size: Styles.buttonIconSize30,
+                    color: Styles.colorBlueGrey,
                   ),
                 ),
               Text(

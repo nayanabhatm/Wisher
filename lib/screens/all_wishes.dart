@@ -1,8 +1,14 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'package:wisher/screens/firebase_images_list.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:wisher/screens/existing_template_screen.dart';
+import 'package:wisher/screens/user_input.dart';
 import 'package:wisher/utils/constants.dart';
-import 'package:wisher/utils/widget_style.dart';
-import 'package:wisher/widgets/sticky_note.dart';
+import 'package:wisher/widgets/template_card.dart';
+import 'package:wisher/widgets/wisher_banner.dart';
 
 class Wishes extends StatelessWidget {
   const Wishes({
@@ -11,181 +17,90 @@ class Wishes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imagePicker = ImagePicker();
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 6,
-                decoration: BoxDecoration(
-                  color: Styles.wisherBkgColor,
-                  borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(Styles.circularRadius32),
-                    bottomLeft: Radius.circular(Styles.circularRadius32),
-                  ),
-                ),
-                child: const Center(
-                  child: Text(
-                    Constants.appTitle,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: Styles.fontSize32,
-                    ),
-                  ),
-                ),
+        body: Column(
+          children: [
+            const WisherBanner(),
+            Flexible(
+              child: TemplateCard(
+                imagePath: Constants.cameraOrGalleryImagePath,
+                imageOnTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext dialogContext) {
+                      return AlertDialog(
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ListTile(
+                              title: const Text(Constants.camera),
+                              trailing: const Icon(Icons.camera_alt),
+                              onTap: () async {
+                                Navigator.pop(context);
+                                await _getImageFromSource(imagePicker, context);
+                              },
+                            ),
+                            ListTile(
+                              title: const Text(Constants.gallery),
+                              trailing: const Icon(Icons.collections),
+                              onTap: () async {
+                                Navigator.pop(context);
+                                await _getImageFromSource(imagePicker, context);
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: Styles.padding10),
-                child: GridView.builder(
-                  physics: const ScrollPhysics(),
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: Constants.wishes.length,
-                  itemBuilder: (BuildContext ctx, index) {
-                    return StickyNote(
-                      color: Constants.wishes.values.toList()[index],
-                      wishesText: Constants.wishes.keys.toList()[index],
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return LoadFirebaseImages(
-                                appBarText:
-                                    Constants.wishes.keys.toList()[index],
-                                firebaseDirectoryName:
-                                    _getFirebaseDirectoryName(
-                                        Constants.wishes.keys.toList()[index]),
-                              );
-                            },
-                          ),
-                        );
-                      },
+            ),
+            Flexible(
+              child: TemplateCard(
+                imagePath: Constants.pickImageFromTemplateImagePath,
+                imageOnTap: () {
+                  SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const TemplateScreen();
+                        },
+                      ),
                     );
-                  },
-                ),
+                  });
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  String _getFirebaseDirectoryName(String wishType) {
-    switch (wishType) {
-      case 'RepublicDay':
-        {
-          return 'RepublicDay';
-        }
-      case 'IndependenceDay':
-        {
-          return 'IndependenceDay';
-        }
-      case 'Sankranti':
-        {
-          return 'Sankranti';
-        }
-      case 'Birthday':
-        {
-          return 'Birthday';
-        }
-      case 'Wedding':
-        {
-          return 'Wedding';
-        }
-      case 'Anniversary':
-        {
-          return 'Anniversary';
-        }
-      case ' MothersDay':
-        {
-          return 'MothersDay';
-        }
-      case ' FathersDay':
-        {
-          return 'FathersDay';
-        }
-      case ' WomensDay':
-        {
-          return 'WomensDay';
-        }
-      case 'Eid':
-        {
-          return 'Eid';
-        }
-      // case 'RamNavami':
-      //   {
-      //     return 'RamNavami';
-      //   }
-      case 'Ugadi':
-        {
-          return 'Ugadi';
-        }
-      case 'Easter':
-        {
-          return 'Easter';
-        }
-      // case 'Thanks For':
-      //   {
-      //     return 'Thanks';
-      //   }
-      case 'Holy':
-        {
-          return 'Holy';
-        }
-      // case 'Maha Shivratri':
-      //   {
-      //     return 'Shivratri';
-      //   }
-      case 'FriendshipDay':
-        {
-          return 'Friendship';
-        }
-      case 'ValentinesDay':
-        {
-          return 'ValentinesDay';
-        }
-      case 'NewYear':
-        {
-          return 'NewYear';
-        }
-      case 'Christmas':
-        {
-          return 'Christmas';
-        }
-      case 'Diwali':
-        {
-          return 'Diwali';
-        }
-      case 'GaneshChaturti':
-        {
-          return 'GaneshChaturti';
-        }
-      case 'Dussehra, Navaratri, DurgaPuja':
-        {
-          return 'Navaratri';
-        }
-      case 'Onam':
-        {
-          return 'Onam';
-        }
-      case 'Krishna Janmashtami':
-        {
-          return 'KrishnaJanmashtami';
-        }
-      case 'Raksha Bandhan':
-        {
-          return 'RakshaBandhan';
-        }
-      default:
-        {
-          return '';
-        }
+  Future<void> _getImageFromSource(
+      ImagePicker imagePicker, BuildContext context) async {
+    final XFile pickedFile = await imagePicker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 85,
+      maxHeight: 720,
+      maxWidth: 720,
+    );
+    if (pickedFile != null) {
+      Uint8List uint8List = await File(pickedFile.path).readAsBytes();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return UserInputScreen(
+              imageUInt8list: uint8List,
+            );
+          },
+        ),
+      );
     }
   }
 }

@@ -10,7 +10,7 @@ class PlaceHolderImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,
+        color: Styles.colorGreyShade300,
         borderRadius: BorderRadius.circular(Styles.circularRadius22),
       ),
       margin: const EdgeInsets.all(Styles.margin7),

@@ -35,7 +35,7 @@ class StickyNote extends StatelessWidget {
             child: Center(
               child: Wrap(alignment: WrapAlignment.center, children: [
                 Text(
-                  '$wishesText Wishes' ?? '',
+                  '$wishesText ${Constants.wishesStr}' ?? '',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyText1,
                 )

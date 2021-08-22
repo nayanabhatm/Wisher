@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wisher/screens/all_wishes.dart';
+import 'package:wisher/utils/widget_style.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,28 +19,30 @@ class StickyNoteApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(
-              const Color(0xffbe0000),
+              Styles.primaryColor,
             ),
           ),
         ),
-        colorScheme: const ColorScheme.highContrastLight().copyWith(
-          secondary: const Color(0xff72147e),
-          primary: const Color(0xffbe0000),
-        ),
+        colorScheme: Styles.appColorScheme(),
         textTheme: const TextTheme(
           bodyText1: TextStyle(
-            fontSize: 20.0,
-            color: Colors.white,
-            fontFamily: 'JosefinSans',
+            fontSize: Styles.fontSize22,
+            color: Styles.colorWhite,
+            fontFamily: Styles.fontFamily,
           ),
           bodyText2: TextStyle(
-            fontSize: 20.0,
-            color: Colors.blueGrey,
-            fontFamily: 'JosefinSans',
+            fontSize: Styles.fontSize20,
+            color: Styles.colorBlueGrey,
+            fontFamily: Styles.fontFamily,
+          ),
+          headline3: TextStyle(
+            fontSize: Styles.fontSize24,
+            color: Styles.colorBlueGrey,
+            fontFamily: Styles.fontFamily,
           ),
         ),
       ),
-      color: Colors.white,
+      color: Styles.colorWhite,
       home: const Wishes(),
     );
   }

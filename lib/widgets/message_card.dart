@@ -35,7 +35,6 @@ class _MessageCardState extends State<MessageCard> {
 
   @override
   void dispose() {
-    print('dispose');
     textEditingController.dispose();
     super.dispose();
   }
@@ -56,14 +55,14 @@ class _MessageCardState extends State<MessageCard> {
           Row(
             children: [
               Text(
-                'Message${widget.index + 1} ',
+                '${Constants.message}${widget.index + 1} ',
               ),
               Flexible(
                 child: TextFormField(
                   controller: textEditingController,
                   decoration: _getInputDecoration(),
                   onChanged: widget.onChange,
-                  maxLength: 30,
+                  maxLength: Constants.maxInputLength,
                 ),
               ),
             ],
@@ -78,17 +77,17 @@ class _MessageCardState extends State<MessageCard> {
                       messageColor: Constants.colorsList[
                           Random().nextInt(Constants.colorsList.length)],
                       messageOffset: const Offset(20, 10),
-                      messageText: 'Message',
-                      messageFont: 26.0,
-                      messageOffsetAngle: 0.0,
-                      messageFinalAngle: 0.0,
+                      messageText: Constants.message,
+                      messageFont: Constants.initialFontSize,
+                      messageOffsetAngle: Constants.initialAngel,
+                      messageFinalAngle: Constants.initialAngel,
                     ),
                   );
                 },
                 icon: const Icon(
                   Icons.add_circle_rounded,
-                  color: Colors.green,
-                  size: 38,
+                  color: Styles.colorGreen,
+                  size: Styles.containerHeight40,
                 ),
               ),
               IconButton(
@@ -98,29 +97,34 @@ class _MessageCardState extends State<MessageCard> {
                 },
                 icon: const Icon(
                   Icons.remove_circle_rounded,
-                  color: Colors.red,
-                  size: 40,
+                  color: Styles.colorRed,
+                  size: Styles.containerHeight40,
                 ),
               ),
               const SizedBox(
-                width: 20.0,
+                width: Styles.padding20,
               ),
               SizedBox(
-                width: 40.0,
-                height: 40.0,
+                width: Styles.containerWidth40,
+                height: Styles.containerHeight40,
                 child: Ink(
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: [Colors.red, Colors.purple, Colors.blue],
+                      colors: [
+                        Styles.colorRed,
+                        Styles.colorPurple,
+                        Styles.colorBlue
+                      ],
                     ),
-                    borderRadius: BorderRadius.circular(22.0),
+                    borderRadius:
+                        BorderRadius.circular(Styles.circularRadius22),
                   ),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      shadowColor: Colors.transparent,
+                      primary: Styles.transparentColor,
+                      shadowColor: Styles.transparentColor,
                     ),
                     onPressed: () {
                       showDialog(
@@ -131,9 +135,9 @@ class _MessageCardState extends State<MessageCard> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 const SizedBox(
-                                  height: 40.0,
+                                  height: Styles.containerHeight40,
                                   child: Center(
-                                    child: Text('Color Picker'),
+                                    child: Text(Constants.colorPicker),
                                   ),
                                 ),
                                 Wrap(
@@ -155,10 +159,10 @@ class _MessageCardState extends State<MessageCard> {
                                       .toList(),
                                 ),
                                 const SizedBox(
-                                  height: 30.0,
+                                  height: Styles.padding30,
                                 ),
                                 const Center(
-                                  child: Text('FontSize Picker'),
+                                  child: Text(Constants.fontSizePicker),
                                 ),
                                 StatefulBuilder(builder: (BuildContext context,
                                     StateSetter setState) {
@@ -195,7 +199,7 @@ class _MessageCardState extends State<MessageCard> {
                 ),
               ),
               const SizedBox(
-                width: 20.0,
+                width: Styles.padding20,
               ),
             ],
           ),
@@ -212,12 +216,12 @@ class _MessageCardState extends State<MessageCard> {
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Colors.blueGrey,
+          color: Styles.colorBlueGrey,
         ),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Colors.blueGrey,
+          color: Styles.colorBlueGrey,
         ),
       ),
     );

@@ -1,153 +1,159 @@
 import 'package:flutter/material.dart';
 import 'package:wisher/screens/firebase_images_list.dart';
 import 'package:wisher/utils/constants.dart';
-import 'package:wisher/utils/widget_style.dart';
 import 'package:wisher/widgets/sticky_note.dart';
+import 'package:wisher/widgets/wisher_banner.dart';
 
-class Templates extends StatelessWidget {
-  const Templates({
+class TemplateScreen extends StatelessWidget {
+  const TemplateScreen({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: Styles.padding10),
-      child: GridView.builder(
-        physics: const ScrollPhysics(),
-        shrinkWrap: true,
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemCount: Constants.wishes.length,
-        itemBuilder: (BuildContext ctx, index) {
-          return StickyNote(
-            color: Constants.wishes.values.toList()[index],
-            wishesText: Constants.wishes.keys.toList()[index],
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return LoadFirebaseImages(
-                      appBarText: Constants.wishes.keys.toList()[index],
-                      firebaseDirectoryName: _getFirebaseDirectoryName(
-                          Constants.wishes.keys.toList()[index]),
+    return Scaffold(
+      body: Column(
+        children: [
+          const WisherBanner(),
+          Expanded(
+            child: GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              itemCount: Constants.wishes.length,
+              itemBuilder: (BuildContext ctx, index) {
+                return StickyNote(
+                  color: Constants.wishes.values.toList()[index],
+                  wishesText: Constants.wishes.keys.toList()[index],
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return LoadFirebaseImages(
+                            appBarText: Constants.wishes.keys.toList()[index],
+                            firebaseDirectoryName: _getFirebaseDirectoryName(
+                                Constants.wishes.keys.toList()[index]),
+                          );
+                        },
+                      ),
                     );
                   },
-                ),
-              );
-            },
-          );
-        },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 
   String _getFirebaseDirectoryName(String wishType) {
     switch (wishType) {
-      case 'RepublicDay':
+      case Constants.republicDay:
         {
-          return 'RepublicDay';
+          return Constants.republicDay;
         }
-      case 'IndependenceDay':
+      case Constants.independenceDay:
         {
-          return 'IndependenceDay';
+          return Constants.independenceDay;
         }
-      case 'Sankranti':
+      case Constants.sankranti:
         {
-          return 'Sankranti';
+          return Constants.sankranti;
         }
-      case 'Birthday':
+      case Constants.birthday:
         {
-          return 'Birthday';
+          return Constants.birthday;
         }
-      case 'Wedding':
+      case Constants.wedding:
         {
-          return 'Wedding';
+          return Constants.wedding;
         }
-      case 'Anniversary':
+      case Constants.anniversary:
         {
-          return 'Anniversary';
+          return Constants.anniversary;
         }
-      case ' MothersDay':
+      case Constants.mothersDay:
         {
-          return 'MothersDay';
+          return Constants.mothersDay;
         }
-      case ' FathersDay':
+      case Constants.fathersDay:
         {
-          return 'FathersDay';
+          return Constants.fathersDay;
         }
-      case ' WomensDay':
+      case Constants.womenDay:
         {
-          return 'WomensDay';
+          return Constants.womenDay;
         }
-      case 'Eid':
+      case Constants.eidMubarak:
         {
-          return 'Eid';
+          return Constants.eidMubarak;
         }
-      // case 'RamNavami':
+      // case Constants.ramNavami:
       //   {
-      //     return 'RamNavami';
+      //     return Constants.ramNavami;
       //   }
-      case 'Ugadi':
+      case Constants.ugadi:
         {
-          return 'Ugadi';
+          return Constants.ugadi;
         }
-      case 'Easter':
+      case Constants.easter:
         {
-          return 'Easter';
+          return Constants.easter;
         }
-      // case 'Thanks For':
+      // case Constants.thanksFor:
       //   {
-      //     return 'Thanks';
+      //     return Constants.thanksFor;
       //   }
-      case 'Holy':
+      case Constants.holy:
         {
-          return 'Holy';
+          return Constants.holy;
         }
-      // case 'Maha Shivratri':
+      // case Constants.shivratri:
       //   {
-      //     return 'Shivratri';
+      //     return Constants.shivratri;
       //   }
-      case 'FriendshipDay':
+      case Constants.friendShipDay:
         {
-          return 'Friendship';
+          return Constants.friendShipDay;
         }
-      case 'ValentinesDay':
+      case Constants.valentineDay:
         {
-          return 'ValentinesDay';
+          return Constants.valentineDay;
         }
-      case 'NewYear':
+      case Constants.newYear:
         {
-          return 'NewYear';
+          return Constants.newYear;
         }
-      case 'Christmas':
+      case Constants.christmas:
         {
-          return 'Christmas';
+          return Constants.christmas;
         }
-      case 'Diwali':
+      case Constants.diwali:
         {
-          return 'Diwali';
+          return Constants.diwali;
         }
-      case 'GaneshChaturti':
+      case Constants.ganeshaChaturti:
         {
-          return 'GaneshChaturti';
+          return Constants.ganeshaChaturti;
         }
-      case 'Dussehra, Navaratri, DurgaPuja':
+      case Constants.navaratri:
         {
-          return 'Navaratri';
+          return Constants.navaratri;
         }
-      case 'Onam':
+      case Constants.onam:
         {
-          return 'Onam';
+          return Constants.onam;
         }
-      case 'Krishna Janmashtami':
+      case Constants.janmashtami:
         {
-          return 'KrishnaJanmashtami';
+          return Constants.janmashtami;
         }
-      case 'Raksha Bandhan':
+      case Constants.rakshaBandhan:
         {
-          return 'RakshaBandhan';
+          return Constants.rakshaBandhan;
         }
       default:
         {

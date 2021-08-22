@@ -2,7 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:wisher/screens/user_input1.dart';
+import 'package:wisher/screens/user_input.dart';
+import 'package:wisher/utils/constants.dart';
 import 'package:wisher/widgets/app_bar.dart';
 import 'package:wisher/widgets/error_card.dart';
 import 'package:wisher/widgets/firebase_image.dart';
@@ -21,6 +22,7 @@ class LoadFirebaseImages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
     return Scaffold(
       appBar: WisherAppBar(
         appBarText: '$appBarText Wishes' ?? '',
@@ -32,7 +34,7 @@ class LoadFirebaseImages extends StatelessWidget {
           if (result.data == ConnectivityResult.none) {
             return const ErrorCard(
               iconData: Icons.wifi,
-              errorText: 'Please check you Internet Connectivity',
+              errorText: Constants.checkConnectivity,
             );
           }
           return FutureBuilder(
@@ -43,13 +45,12 @@ class LoadFirebaseImages extends StatelessWidget {
 
                 if (firebaseImageMap == null) {
                   return const ErrorCard(
-                    errorText:
-                        'Something went wrong. Please check your InternetConnectivity',
+                    errorText: Constants.someError,
                   );
                 } else if (firebaseImageMap.isEmpty) {
                   return const ErrorCard(
                     iconData: Icons.error,
-                    errorText: 'No Images',
+                    errorText: Constants.noImages,
                   );
                 } else {
                   return ListView(
@@ -60,16 +61,14 @@ class LoadFirebaseImages extends StatelessWidget {
                             child: CachedNetworkImage(
                               imageUrl: image.value,
                               imageBuilder: (context, imageProvider) => InkWell(
-                                hoverColor:
-                                    Theme.of(context).colorScheme.secondary,
-                                splashColor:
-                                    Theme.of(context).colorScheme.secondary,
+                                hoverColor: themeData.colorScheme.secondary,
+                                splashColor: themeData.colorScheme.secondary,
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return UserInputScreen1(
+                                        return UserInputScreen(
                                           imageUrl: image.value,
                                           imageProvider: imageProvider,
                                           directoryName: appBarText,
@@ -98,7 +97,7 @@ class LoadFirebaseImages extends StatelessWidget {
               }
               if (snapshot.connectionState == ConnectionState.none) {
                 return const ErrorCard(
-                  errorText: 'No Images',
+                  errorText: Constants.noImages,
                 );
               }
               if (snapshot.hasError) {

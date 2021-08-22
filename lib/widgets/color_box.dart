@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wisher/utils/widget_style.dart';
 
 class ColorBox extends StatelessWidget {
   const ColorBox({
@@ -11,11 +12,11 @@ class ColorBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(3.0),
-      width: 25.0,
-      height: 25.0,
+      margin: const EdgeInsets.all(Styles.margin3),
+      width: Styles.colorBoxSize,
+      height: Styles.colorBoxSize,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(Styles.circularRadius10),
         color: color,
       ),
     );
