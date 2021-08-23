@@ -8,7 +8,7 @@ import 'package:wisher/utils/state_store.dart';
 import 'package:wisher/utils/widget_style.dart';
 import 'package:wisher/widgets/color_box.dart';
 
-class MessageCard extends StatefulWidget {
+class MessageCard extends StatelessWidget {
   const MessageCard({
     Key key,
     this.index,
@@ -17,36 +17,11 @@ class MessageCard extends StatefulWidget {
   }) : super(key: key);
 
   final int index;
-  final ValueChanged<String> onChange;
   final String initialText;
-
-  @override
-  _MessageCardState createState() => _MessageCardState();
-}
-
-class _MessageCardState extends State<MessageCard> {
-  TextEditingController textEditingController;
-
-  @override
-  void initState() {
-    super.initState();
-    textEditingController = TextEditingController(text: widget.initialText);
-  }
-
-  @override
-  void dispose() {
-    textEditingController.dispose();
-    super.dispose();
-  }
+  final ValueChanged<String> onChange;
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      textEditingController.text = widget.initialText;
-      textEditingController.selection = TextSelection.fromPosition(
-          TextPosition(offset: textEditingController.text.length));
-    });
-
     var stateStore = Provider.of<StateStore>(context);
     return Padding(
       padding: const EdgeInsets.all(Styles.padding10),
@@ -54,14 +29,14 @@ class _MessageCardState extends State<MessageCard> {
         children: [
           Row(
             children: [
-              Text(
-                '${Constants.message}${widget.index + 1} ',
+              const Text(
+                '${Constants.message} ',
               ),
               Flexible(
                 child: TextFormField(
-                  controller: textEditingController,
+                  initialValue: initialText,
                   decoration: _getInputDecoration(),
-                  onChanged: widget.onChange,
+                  onChanged: onChange,
                   maxLength: Constants.maxInputLength,
                 ),
               ),
@@ -93,7 +68,7 @@ class _MessageCardState extends State<MessageCard> {
               IconButton(
                 onPressed: () {
                   stateStore.removeFromMessageModelList(
-                      stateStore.messageModelsList.elementAt(widget.index));
+                      stateStore.messageModelsList.elementAt(index));
                 },
                 icon: const Icon(
                   Icons.remove_circle_rounded,
@@ -146,8 +121,8 @@ class _MessageCardState extends State<MessageCard> {
                                         (color) => InkWell(
                                           onTap: () {
                                             stateStore.updateColor(
-                                                stateStore.messageModelsList[
-                                                    widget.index],
+                                                stateStore
+                                                    .messageModelsList[index],
                                                 color);
                                             Navigator.pop(context);
                                           },
@@ -168,8 +143,7 @@ class _MessageCardState extends State<MessageCard> {
                                     StateSetter setState) {
                                   return DropdownButton<double>(
                                     value: stateStore
-                                        .messageModelsList[widget.index]
-                                        .messageFont,
+                                        .messageModelsList[index].messageFont,
                                     items:
                                         Constants.fontSizes.map((double value) {
                                       return DropdownMenuItem<double>(
@@ -181,8 +155,7 @@ class _MessageCardState extends State<MessageCard> {
                                     }).toList(),
                                     onChanged: (double newFont) {
                                       stateStore.updateFontSize(
-                                          stateStore
-                                              .messageModelsList[widget.index],
+                                          stateStore.messageModelsList[index],
                                           newFont);
                                       setState(() {});
                                     },

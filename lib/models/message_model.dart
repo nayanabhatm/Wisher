@@ -9,7 +9,7 @@ class MessageModel {
     this.messageFont = Constants.initialFontSize,
     this.messageFinalAngle = Constants.initialAngel,
     this.messageOffsetAngle = Constants.initialAngel,
-    this.showRotateIcon = true,
+    this.showRotateIcon,
   });
 
   Color messageColor;

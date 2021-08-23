@@ -38,16 +38,16 @@ class Wishes extends StatelessWidget {
                               title: const Text(Constants.camera),
                               trailing: const Icon(Icons.camera_alt),
                               onTap: () async {
-                                Navigator.pop(context);
-                                await _getImageFromSource(imagePicker, context);
+                                await _getImageFromSource(
+                                    imagePicker, context, ImageSource.camera);
                               },
                             ),
                             ListTile(
                               title: const Text(Constants.gallery),
                               trailing: const Icon(Icons.collections),
                               onTap: () async {
-                                Navigator.pop(context);
-                                await _getImageFromSource(imagePicker, context);
+                                await _getImageFromSource(
+                                    imagePicker, context, ImageSource.gallery);
                               },
                             )
                           ],
@@ -81,10 +81,10 @@ class Wishes extends StatelessWidget {
     );
   }
 
-  Future<void> _getImageFromSource(
-      ImagePicker imagePicker, BuildContext context) async {
+  Future<void> _getImageFromSource(ImagePicker imagePicker,
+      BuildContext context, ImageSource imageSource) async {
     final XFile pickedFile = await imagePicker.pickImage(
-      source: ImageSource.gallery,
+      source: imageSource,
       imageQuality: 85,
       maxHeight: 720,
       maxWidth: 720,

@@ -89,7 +89,7 @@ class _UserInputScreenState extends State<UserInputScreen> {
                                         await _capturePng(context);
 
                                     if (imageUInt8list != null) {
-                                      await showCreateShareDialog(
+                                      showCreateShareDialog(
                                           context,
                                           imageUInt8list,
                                           themeData,
@@ -166,6 +166,7 @@ class _UserInputScreenState extends State<UserInputScreen> {
     for (int i = 0; i < stateStoreLen; i++) {
       messageCards.add(
         Card(
+          key: ValueKey(stateStore.messageModelsList[i]),
           child: Column(
             children: [
               MessageCard(
@@ -174,8 +175,7 @@ class _UserInputScreenState extends State<UserInputScreen> {
                   stateStore.updateText(
                       stateStore.messageModelsList[i], newInput);
                 },
-                initialText: stateStore.messageModelsList[i].messageText ??
-                    Constants.message,
+                initialText: Constants.message,
               ),
             ],
           ),
@@ -220,8 +220,8 @@ class _UserInputScreenState extends State<UserInputScreen> {
                         child: Column(
                           children: [
                             _rotateMessage(message, themeData),
-                            if (message.showRotateIcon)
-                              _rotateIcon(message, stateStore)
+                            if (message.showRotateIcon ?? true)
+                              _showRotateIcon(message, stateStore)
                           ],
                         ),
                       ),
@@ -235,7 +235,7 @@ class _UserInputScreenState extends State<UserInputScreen> {
     );
   }
 
-  Transform _rotateIcon(MessageModel message, StateStore stateStore) {
+  Transform _showRotateIcon(MessageModel message, StateStore stateStore) {
     return Transform.rotate(
       angle: message.messageFinalAngle,
       child: Container(
