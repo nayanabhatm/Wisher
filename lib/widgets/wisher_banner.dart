@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:wisher/utils/constants.dart';
 import 'package:wisher/utils/widget_style.dart';
 
 class WisherBanner extends StatelessWidget {
   const WisherBanner({
     Key key,
+    @required this.title,
   }) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +21,10 @@ class WisherBanner extends StatelessWidget {
           bottomLeft: Radius.circular(Styles.circularRadius32),
         ),
       ),
-      child: const Center(
+      child: Center(
         child: Text(
-          Constants.appTitle,
-          style: TextStyle(
+          title,
+          style: const TextStyle(
             color: Styles.colorWhite,
             fontSize: Styles.fontSize32,
           ),

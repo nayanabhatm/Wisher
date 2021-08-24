@@ -14,7 +14,9 @@ class TemplateScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const WisherBanner(),
+          const WisherBanner(
+            title: '${Constants.appTitle} ${Constants.templates}',
+          ),
           Expanded(
             child: GridView.builder(
               shrinkWrap: true,

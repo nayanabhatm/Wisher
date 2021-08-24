@@ -22,7 +22,9 @@ class Wishes extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            const WisherBanner(),
+            const WisherBanner(
+              title: Constants.appTitle,
+            ),
             Flexible(
               child: TemplateCard(
                 imagePath: Constants.cameraOrGalleryImagePath,

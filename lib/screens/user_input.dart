@@ -89,7 +89,7 @@ class _UserInputScreenState extends State<UserInputScreen> {
                                         await _capturePng(context);
 
                                     if (imageUInt8list != null) {
-                                      showCreateShareDialog(
+                                      await showCreateShareDialog(
                                           context,
                                           imageUInt8list,
                                           themeData,
@@ -191,45 +191,40 @@ class _UserInputScreenState extends State<UserInputScreen> {
       key: _globalKey,
       child: AspectRatio(
         aspectRatio: 4 / 3,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: Styles.padding10,
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              if (widget.imageUInt8list != null)
-                Image.memory(widget.imageUInt8list),
-              if (widget.imageUrl != null && widget.imageProvider != null)
-                FirebaseImage(
-                  imageUrl: widget.imageUrl,
-                  imageProvider: widget.imageProvider,
-                ),
-              ...stateStore.messageModelsList
-                  .map(
-                    (message) => Positioned(
-                      left: message.messageOffset.dx,
-                      top: message.messageOffset.dy,
-                      child: GestureDetector(
-                        onPanUpdate: (details) {
-                          Offset newOffset = Offset(
-                              message.messageOffset.dx + details.delta.dx,
-                              message.messageOffset.dy + details.delta.dy);
-                          stateStore.updateOffset(message, newOffset);
-                        },
-                        child: Column(
-                          children: [
-                            _rotateMessage(message, themeData),
-                            if (message.showRotateIcon ?? true)
-                              _showRotateIcon(message, stateStore)
-                          ],
-                        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            if (widget.imageUInt8list != null)
+              Image.memory(widget.imageUInt8list),
+            if (widget.imageUrl != null && widget.imageProvider != null)
+              FirebaseImage(
+                imageUrl: widget.imageUrl,
+                imageProvider: widget.imageProvider,
+              ),
+            ...stateStore.messageModelsList
+                .map(
+                  (message) => Positioned(
+                    left: message.messageOffset.dx,
+                    top: message.messageOffset.dy,
+                    child: GestureDetector(
+                      onPanUpdate: (details) {
+                        Offset newOffset = Offset(
+                            message.messageOffset.dx + details.delta.dx,
+                            message.messageOffset.dy + details.delta.dy);
+                        stateStore.updateOffset(message, newOffset);
+                      },
+                      child: Column(
+                        children: [
+                          _rotateMessage(message, themeData),
+                          if (message.showRotateIcon ?? false)
+                            _showRotateIcon(message, stateStore)
+                        ],
                       ),
                     ),
-                  )
-                  .toList()
-            ],
-          ),
+                  ),
+                )
+                .toList()
+          ],
         ),
       ),
     );

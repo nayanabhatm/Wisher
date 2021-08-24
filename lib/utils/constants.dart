@@ -22,6 +22,7 @@ class Constants {
   static const String pickImageFromTemplateImagePath =
       'assets/images/pick_from_templates.jpg';
   static const String wishesStr = 'Wishes';
+  static const String templates = 'Templates';
   static const String pinImagePath = 'assets/images/pin.png';
 
   // Wish String constants

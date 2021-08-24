@@ -12,6 +12,7 @@ class WisherAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Styles.primaryColor,
       title: Text(
         appBarText,
         style: Theme.of(context).textTheme.bodyText1,
