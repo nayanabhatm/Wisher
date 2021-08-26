@@ -11,42 +11,44 @@ class TemplateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          const WisherBanner(
-            title: '${Constants.appTitle} ${Constants.templates}',
-          ),
-          Expanded(
-            child: GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemCount: Constants.wishes.length,
-              itemBuilder: (BuildContext ctx, index) {
-                return StickyNote(
-                  color: Constants.wishes.values.toList()[index],
-                  wishesText: Constants.wishes.keys.toList()[index],
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return LoadFirebaseImages(
-                            appBarText: Constants.wishes.keys.toList()[index],
-                            firebaseDirectoryName: _getFirebaseDirectoryName(
-                                Constants.wishes.keys.toList()[index]),
-                          );
-                        },
-                      ),
-                    );
-                  },
-                );
-              },
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            const WisherBanner(
+              title: '${Constants.appTitle} ${Constants.templates}',
             ),
-          ),
-        ],
+            Expanded(
+              child: GridView.builder(
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: Constants.wishes.length,
+                itemBuilder: (BuildContext ctx, index) {
+                  return StickyNote(
+                    color: Constants.wishes.values.toList()[index],
+                    wishesText: Constants.wishes.keys.toList()[index],
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return LoadFirebaseImages(
+                              appBarText: Constants.wishes.keys.toList()[index],
+                              firebaseDirectoryName: _getFirebaseDirectoryName(
+                                  Constants.wishes.keys.toList()[index]),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

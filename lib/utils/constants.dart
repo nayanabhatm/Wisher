@@ -8,9 +8,10 @@ class Constants {
       'Something went wrong. Please check your InternetConnectivity';
   static const String noImages = 'No Images';
   static const String customizeWish = 'Customize Your Wish!';
-  static const String create = 'Create';
+  static const String done = 'Done';
   static const String close = 'Close';
   static const String share = 'Share';
+  static const String reset = 'Reset';
   static const String message = 'Message';
   static const String fontSizePicker = 'FontSize Picker';
   static const String colorPicker = 'Color Picker';
@@ -23,7 +24,9 @@ class Constants {
       'assets/images/pick_from_templates.jpg';
   static const String wishesStr = 'Wishes';
   static const String templates = 'Templates';
+  static const String pleaseWait = 'Please Wait...';
   static const String pinImagePath = 'assets/images/pin.png';
+  static const String imageName = 'Image.jpg';
 
   // Wish String constants
   static const String republicDay = 'RepublicDay';

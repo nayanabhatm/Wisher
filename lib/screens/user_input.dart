@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -12,6 +13,7 @@ import 'package:wisher/utils/read_or_write_images.dart';
 import 'package:wisher/utils/state_store.dart';
 import 'package:wisher/utils/widget_style.dart';
 import 'package:wisher/widgets/app_bar.dart';
+import 'package:wisher/widgets/app_dialog.dart';
 import 'package:wisher/widgets/error_card.dart';
 import 'package:wisher/widgets/firebase_image.dart';
 import 'package:wisher/widgets/message_card.dart';
@@ -24,7 +26,6 @@ class UserInputScreen extends StatefulWidget {
     this.directoryName,
     this.fileName,
     this.imageFileName,
-    this.imageUInt8list,
   }) : super(key: key);
 
   final String imageUrl;
@@ -32,7 +33,6 @@ class UserInputScreen extends StatefulWidget {
   final String directoryName;
   final String fileName;
   final String imageFileName;
-  final Uint8List imageUInt8list;
 
   @override
   _UserInputScreenState createState() => _UserInputScreenState();
@@ -40,81 +40,120 @@ class UserInputScreen extends StatefulWidget {
 
 class _UserInputScreenState extends State<UserInputScreen> {
   final GlobalKey _globalKey = GlobalKey();
+  bool showRotateIcon = true;
 
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
-    return ChangeNotifierProvider(
-      create: (context) => StateStore(),
-      child: Scaffold(
-        appBar: const WisherAppBar(
-          appBarText: Constants.customizeWish,
-        ),
-        body: StreamBuilder(
-          stream: Connectivity().onConnectivityChanged,
-          builder:
-              (BuildContext context, AsyncSnapshot<ConnectivityResult> result) {
-            if (result.data == ConnectivityResult.none) {
-              return const ErrorCard(
-                iconData: Icons.wifi,
-                errorText: Constants.checkConnectivity,
-              );
-            }
-            return Consumer<StateStore>(
-              builder: (context, stateStore, child) {
-                return Column(
-                  children: [
-                    _getRepaintBoundary(themeData, stateStore),
-                    Expanded(
-                      child: SingleChildScrollView(
+    return Scaffold(
+      appBar: WisherAppBar(
+        appBarText: Constants.customizeWish,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: Styles.padding8),
+            child: IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      margin: const EdgeInsets.all(Styles.padding10),
+                      child: Dialog(
+                        insetPadding: const EdgeInsets.all(Styles.padding10),
                         child: Column(
-                          children: [
-                            ..._getMessageCards(stateStore, context),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: Styles.margin20 * 3,
-                                horizontal: Styles.margin20,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: Styles.padding30),
-                                child: ElevatedButton(
-                                  child: Text(
-                                    Constants.create,
-                                    style: themeData.textTheme.bodyText1,
-                                  ),
-                                  onPressed: () async {
-                                    stateStore.resetShowRotateIcon();
-                                    Uint8List imageUInt8list =
-                                        await _capturePng(context);
-
-                                    if (imageUInt8list != null) {
-                                      await showCreateShareDialog(
-                                          context,
-                                          imageUInt8list,
-                                          themeData,
-                                          stateStore);
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text(
+                                '1. Drag the message horizontally and place it whereever needed on the image'),
+                            Text(
+                                '2. Use the Rotate icon to rotate the messages as needed. '),
                           ],
                         ),
                       ),
-                    )
-                  ],
+                    );
+                  },
                 );
               },
+              icon: const Icon(
+                Icons.info,
+                size: Styles.buttonIconSize30,
+              ),
+            ),
+          )
+        ],
+      ),
+      body: StreamBuilder(
+        stream: Connectivity().onConnectivityChanged,
+        builder:
+            (BuildContext context, AsyncSnapshot<ConnectivityResult> result) {
+          if (result.data == ConnectivityResult.none) {
+            return const ErrorCard(
+              iconData: Icons.wifi,
+              errorText: Constants.checkConnectivity,
             );
-          },
-        ),
+          }
+          return Consumer<StateStore>(
+            builder: (context, stateStore, child) {
+              return Column(
+                children: [
+                  _getRepaintBoundary(themeData, stateStore),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ..._getMessageCards(stateStore, context),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: Styles.margin20 * 3,
+                              horizontal: Styles.margin20,
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: Styles.padding30),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ElevatedButton(
+                                    child: Text(
+                                      Constants.done,
+                                      style: themeData.textTheme.bodyText1,
+                                    ),
+                                    onPressed: () async {
+                                      Uint8List imageBytes;
+
+                                      setState(() {
+                                        showRotateIcon = false;
+                                      });
+
+                                      AppDialog.showProgressIndicator(context);
+                                      await Future.delayed(
+                                          const Duration(seconds: 1), () async {
+                                        imageBytes = await _capturePng(context);
+                                      });
+                                      Navigator.pop(context);
+
+                                      showShareDialog(context, imageBytes);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              );
+            },
+          );
+        },
       ),
     );
   }
 
-  showCreateShareDialog(BuildContext context, Uint8List imageUInt8list,
-      ThemeData themeData, StateStore stateStore) async {
+  showShareDialog(BuildContext context, Uint8List imageUInt8list) async {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -133,21 +172,24 @@ class _UserInputScreenState extends State<UserInputScreen> {
               ElevatedButton(
                 child: Text(
                   Constants.close,
-                  style: themeData.textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 onPressed: () async {
-                  stateStore.setShowRotateIcon();
+                  setState(() {
+                    showRotateIcon = true;
+                  });
                   Navigator.pop(context);
                 },
               ),
               ElevatedButton(
                 child: Text(
                   Constants.share,
-                  style: themeData.textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 onPressed: () async {
                   String directoryName =
                       await ReadOrWriteImages.getFilePath(widget.fileName);
+
                   Share.shareFiles([directoryName],
                       text: Constants.sharedFromApp);
                 },
@@ -194,12 +236,15 @@ class _UserInputScreenState extends State<UserInputScreen> {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            if (widget.imageUInt8list != null)
-              Image.memory(widget.imageUInt8list),
-            if (widget.imageUrl != null && widget.imageProvider != null)
-              FirebaseImage(
-                imageUrl: widget.imageUrl,
+            if (widget.imageUrl != null && widget.imageProvider == null)
+              ImageWidget(
+                imageProvider: FileImage(File(widget.imageUrl)),
+                boxFit: BoxFit.contain,
+              ),
+            if (widget.imageProvider != null && widget.imageUrl != null)
+              ImageWidget(
                 imageProvider: widget.imageProvider,
+                boxFit: BoxFit.fill,
               ),
             ...stateStore.messageModelsList
                 .map(
@@ -216,7 +261,7 @@ class _UserInputScreenState extends State<UserInputScreen> {
                       child: Column(
                         children: [
                           _rotateMessage(message, themeData),
-                          if (message.showRotateIcon ?? false)
+                          if (showRotateIcon)
                             _showRotateIcon(message, stateStore)
                         ],
                       ),
@@ -234,8 +279,8 @@ class _UserInputScreenState extends State<UserInputScreen> {
     return Transform.rotate(
       angle: message.messageFinalAngle,
       child: Container(
-        height: Styles.containerHeight40,
-        width: Styles.containerWidth40,
+        height: Styles.container50,
+        width: Styles.container50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Styles.circularRadius22),
           color: Styles.colorWhite,
@@ -303,8 +348,7 @@ class _UserInputScreenState extends State<UserInputScreen> {
       ByteData byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);
       var pngBytes = byteData.buffer.asUint8List();
-      //var bs64 = base64Encode(pngBytes);
-      ReadOrWriteImages.saveFile(pngBytes, widget.fileName);
+      ReadOrWriteImages.writeImageBytesToFile(pngBytes, widget.fileName);
       return pngBytes;
     } catch (e) {
       return null;

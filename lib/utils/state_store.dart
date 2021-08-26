@@ -52,18 +52,4 @@ class StateStore extends ChangeNotifier {
     messageModel.messageOffsetAngle = offsetAngle;
     notifyListeners();
   }
-
-  void resetShowRotateIcon() {
-    for (MessageModel messageModel in messageModelsList) {
-      messageModel.showRotateIcon = false;
-    }
-    notifyListeners();
-  }
-
-  void setShowRotateIcon() {
-    for (MessageModel messageModel in messageModelsList) {
-      messageModel.showRotateIcon = true;
-    }
-    notifyListeners();
-  }
 }

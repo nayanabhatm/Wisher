@@ -78,9 +78,9 @@ class LoadFirebaseImages extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: FirebaseImage(
-                                  imageUrl: image.value,
+                                child: ImageWidget(
                                   imageProvider: imageProvider,
+                                  boxFit: BoxFit.fill,
                                 ),
                               ),
                               fadeInCurve: Curves.easeIn,

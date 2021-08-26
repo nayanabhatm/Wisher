@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:wisher/utils/widget_style.dart';
 
-class FirebaseImage extends StatelessWidget {
-  const FirebaseImage({
+class ImageWidget extends StatelessWidget {
+  const ImageWidget({
     Key key,
-    this.imageProvider,
-    this.imageUrl,
+    @required this.imageProvider,
+    @required this.boxFit,
   }) : super(key: key);
 
-  final String imageUrl;
   final ImageProvider imageProvider;
+  final BoxFit boxFit;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class FirebaseImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(Styles.circularRadius22),
         image: DecorationImage(
           image: imageProvider,
-          fit: BoxFit.scaleDown,
+          fit: boxFit,
         ),
       ),
     );

@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
@@ -92,17 +89,18 @@ class Wishes extends StatelessWidget {
       maxWidth: 720,
     );
     if (pickedFile != null) {
-      Uint8List uint8List = await File(pickedFile.path).readAsBytes();
-      Navigator.push(
+      await Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) {
             return UserInputScreen(
-              imageUInt8list: uint8List,
+              imageUrl: pickedFile.path,
+              fileName: Constants.imageName,
             );
           },
         ),
       );
+      Navigator.of(context).pop();
     }
   }
 }

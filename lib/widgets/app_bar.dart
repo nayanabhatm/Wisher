@@ -5,9 +5,11 @@ class WisherAppBar extends StatelessWidget with PreferredSizeWidget {
   const WisherAppBar({
     Key key,
     @required this.appBarText,
+    this.actions,
   }) : super(key: key);
 
   final String appBarText;
+  final List<Widget> actions;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class WisherAppBar extends StatelessWidget with PreferredSizeWidget {
           Navigator.pop(context);
         },
       ),
+      actions: actions,
     );
   }
 

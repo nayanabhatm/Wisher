@@ -62,7 +62,7 @@ class MessageCard extends StatelessWidget {
                 icon: const Icon(
                   Icons.add_circle_rounded,
                   color: Styles.colorGreen,
-                  size: Styles.containerHeight40,
+                  size: Styles.container40,
                 ),
               ),
               IconButton(
@@ -73,15 +73,15 @@ class MessageCard extends StatelessWidget {
                 icon: const Icon(
                   Icons.remove_circle_rounded,
                   color: Styles.colorRed,
-                  size: Styles.containerHeight40,
+                  size: Styles.container40,
                 ),
               ),
               const SizedBox(
                 width: Styles.padding20,
               ),
               SizedBox(
-                width: Styles.containerWidth40,
-                height: Styles.containerHeight40,
+                width: Styles.container50,
+                height: Styles.container40,
                 child: Ink(
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
@@ -110,7 +110,7 @@ class MessageCard extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 const SizedBox(
-                                  height: Styles.containerHeight40,
+                                  height: Styles.container40,
                                   child: Center(
                                     child: Text(Constants.colorPicker),
                                   ),
