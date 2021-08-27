@@ -53,26 +53,8 @@ class _UserInputScreenState extends State<UserInputScreen> {
             padding: const EdgeInsets.only(right: Styles.padding8),
             child: IconButton(
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Container(
-                      margin: const EdgeInsets.all(Styles.padding10),
-                      child: Dialog(
-                        insetPadding: const EdgeInsets.all(Styles.padding10),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Text(
-                                '1. Drag the message horizontally and place it whereever needed on the image'),
-                            Text(
-                                '2. Use the Rotate icon to rotate the messages as needed. '),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
+                AppDialog.showAppDialog(
+                    context, infoDialogChildWidgets(), true);
               },
               icon: const Icon(
                 Icons.info,
@@ -126,7 +108,10 @@ class _UserInputScreenState extends State<UserInputScreen> {
                                         showRotateIcon = false;
                                       });
 
-                                      AppDialog.showProgressIndicator(context);
+                                      AppDialog.showAppDialog(
+                                          context,
+                                          progressBarDialogChildWidgets(),
+                                          false);
                                       await Future.delayed(
                                           const Duration(seconds: 1), () async {
                                         imageBytes = await _capturePng(context);
@@ -151,6 +136,37 @@ class _UserInputScreenState extends State<UserInputScreen> {
         },
       ),
     );
+  }
+
+  List<Widget> progressBarDialogChildWidgets() {
+    return const [
+      CircularProgressIndicator(),
+      SizedBox(
+        height: Styles.padding10,
+      ),
+      Text(
+        Constants.pleaseWait,
+      ),
+    ];
+  }
+
+  List<Widget> infoDialogChildWidgets() {
+    return const [
+      SizedBox(
+        height: Styles.padding10,
+      ),
+      Text(
+        Constants.infoText1,
+        textAlign: TextAlign.center,
+      ),
+      SizedBox(
+        height: Styles.padding10,
+      ),
+      Text(
+        Constants.infoText2,
+        textAlign: TextAlign.center,
+      ),
+    ];
   }
 
   showShareDialog(BuildContext context, Uint8List imageUInt8list) async {

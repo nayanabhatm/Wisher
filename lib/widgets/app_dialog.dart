@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:wisher/utils/constants.dart';
 import 'package:wisher/utils/widget_style.dart';
 
 class AppDialog {
-  static void showProgressIndicator(BuildContext context) {
+  static void showAppDialog(BuildContext context, List<Widget> childWidgets,
+      bool barrierDismissible) {
     showDialog(
-      barrierDismissible: false,
+      barrierDismissible: barrierDismissible,
       context: context,
       builder: (context) => WillPopScope(
-        onWillPop: () async => false,
+        onWillPop: () async => barrierDismissible,
         child: Dialog(
           insetPadding: const EdgeInsets.all(Styles.padding45),
           shape: RoundedRectangleBorder(
@@ -26,15 +26,7 @@ class AppDialog {
                 Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(),
-                      SizedBox(
-                        height: Styles.padding10,
-                      ),
-                      Text(
-                        Constants.pleaseWait,
-                      ),
-                    ],
+                    children: childWidgets,
                   ),
                 ),
                 const SizedBox(

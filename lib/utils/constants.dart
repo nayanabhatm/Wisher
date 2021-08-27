@@ -27,6 +27,10 @@ class Constants {
   static const String pleaseWait = 'Please Wait...';
   static const String pinImagePath = 'assets/images/pin.png';
   static const String imageName = 'Image.jpg';
+  static const String infoText1 =
+      '>> Drag the message horizontally and place it as needed. \n>> Use the Rotate icon to rotate the message.';
+  static const String infoText2 =
+      '>> Use the Rotate icon to rotate the message.';
 
   // Wish String constants
   static const String republicDay = 'RepublicDay';
