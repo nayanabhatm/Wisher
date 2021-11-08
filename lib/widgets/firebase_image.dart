@@ -14,7 +14,10 @@ class ImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(Styles.margin7),
+      margin: const EdgeInsets.symmetric(
+        vertical: Styles.margin7,
+        horizontal: Styles.margin20,
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Styles.circularRadius22),
         image: DecorationImage(

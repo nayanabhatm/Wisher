@@ -44,7 +44,7 @@ class Constants {
   static const String eidMubarak = 'Eid Mubarak';
   static const String ugadi = 'Ugadi';
   static const String easter = 'Happy Easter';
-  static const String holy = 'Holy';
+  // static const String holy = 'Holy';
   static const String shivratri = 'Maha Shivratri';
   static const String friendShipDay = 'Friendship Day';
   static const String valentineDay = 'Valentine\'s Day';
@@ -52,7 +52,7 @@ class Constants {
   static const String christmas = 'Christmas';
   static const String diwali = 'Diwali';
   static const String ganeshaChaturti = 'Ganesh Chaturti';
-  static const String navaratri = 'Dussehra, Navaratri, DurgaPuja';
+  static const String navratri = 'Navratri';
   static const String ramNavami = 'Ram Navami';
   static const String thanksFor = 'Thanks For';
   static const String onam = 'Onam';
@@ -74,7 +74,7 @@ class Constants {
     ugadi: Color(0xff00adb5),
     easter: Color(0xff325288),
     // thanksFor: Color(0xff114e60),
-    holy: Color(0xff2978b5),
+    // holy: Color(0xff2978b5),
     shivratri: Color(0xffa35709),
     friendShipDay: Color(0xff0061a8),
     valentineDay: Color(0xff194350),
@@ -82,7 +82,7 @@ class Constants {
     christmas: Color(0xffd44000),
     diwali: Color(0xfff58634),
     ganeshaChaturti: Color(0xff5aa897),
-    navaratri: Color(0xff845460),
+    navratri: Color(0xff845460),
     // onam: Color(0xff2f5d62),
     // janmashtami: Color(0xff5b8a72),
     // rakshaBandhan: Color(0xff9e9d89),
