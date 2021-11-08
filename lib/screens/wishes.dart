@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:wisher/screens/existing_template_screen.dart';
+import 'package:wisher/screens/templates_screen.dart';
 import 'package:wisher/screens/user_input.dart';
 import 'package:wisher/utils/constants.dart';
 import 'package:wisher/widgets/template_card.dart';

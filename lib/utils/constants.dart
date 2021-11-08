@@ -28,14 +28,13 @@ class Constants {
   static const String pinImagePath = 'assets/images/pin.png';
   static const String imageName = 'Image.jpg';
   static const String infoText1 =
-      '>> Drag the message horizontally and place it as needed. \n>> Use the Rotate icon to rotate the message.';
-  static const String infoText2 =
-      '>> Use the Rotate icon to rotate the message.';
+      'Drag the message horizontally and place it as needed.';
+  static const String infoText2 = 'Use the Rotate icon to rotate the message.';
 
   // Wish String constants
   static const String republicDay = 'RepublicDay';
   static const String independenceDay = 'IndependenceDay';
-  static const String sankranti = 'Sankranti/Pongal';
+  static const String sankranti = 'Sankranti';
   static const String birthday = 'Birthday';
   static const String wedding = 'Wedding';
   static const String anniversary = 'Anniversary';

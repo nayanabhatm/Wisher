@@ -151,20 +151,42 @@ class _UserInputScreenState extends State<UserInputScreen> {
   }
 
   List<Widget> infoDialogChildWidgets() {
-    return const [
-      SizedBox(
-        height: Styles.padding10,
+    return [
+      Padding(
+        padding: const EdgeInsets.all(Styles.padding10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            CircleAvatar(
+              radius: Styles.padding8,
+              backgroundColor: Styles.colorBlueGrey,
+            ),
+            Flexible(
+              child: Text(
+                Constants.infoText1,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
-      Text(
-        Constants.infoText1,
-        textAlign: TextAlign.center,
-      ),
-      SizedBox(
-        height: Styles.padding10,
-      ),
-      Text(
-        Constants.infoText2,
-        textAlign: TextAlign.center,
+      Padding(
+        padding: const EdgeInsets.all(Styles.padding10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            CircleAvatar(
+              radius: Styles.padding8,
+              backgroundColor: Styles.colorBlueGrey,
+            ),
+            Flexible(
+              child: Text(
+                Constants.infoText2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
     ];
   }
