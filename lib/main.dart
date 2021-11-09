@@ -19,6 +19,7 @@ class StickyNoteApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => StateStore(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
