@@ -57,7 +57,7 @@ class LoadFirebaseImages extends StatelessWidget {
                     children: firebaseImageMap.entries
                         .map(
                           (image) => AspectRatio(
-                            aspectRatio: 1.0,
+                            aspectRatio: 4 / 3,
                             child: CachedNetworkImage(
                               imageUrl: image.value,
                               imageBuilder: (context, imageProvider) => InkWell(

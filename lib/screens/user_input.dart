@@ -53,8 +53,7 @@ class _UserInputScreenState extends State<UserInputScreen> {
             padding: const EdgeInsets.only(right: Styles.padding8),
             child: IconButton(
               onPressed: () {
-                AppDialog.showAppDialog(
-                    context, infoDialogChildWidgets(), true);
+                AppDialog.showAppDialog(context, infoDialogWidgets(), true);
               },
               icon: const Icon(
                 Icons.info,
@@ -150,7 +149,7 @@ class _UserInputScreenState extends State<UserInputScreen> {
     ];
   }
 
-  List<Widget> infoDialogChildWidgets() {
+  List<Widget> infoDialogWidgets() {
     return [
       Padding(
         padding: const EdgeInsets.all(Styles.padding10),
