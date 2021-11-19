@@ -65,17 +65,18 @@ class MessageCard extends StatelessWidget {
                   size: Styles.container40,
                 ),
               ),
-              IconButton(
-                onPressed: () {
-                  stateStore.removeFromMessageModelList(
-                      stateStore.messageModelsList.elementAt(index));
-                },
-                icon: const Icon(
-                  Icons.remove_circle_rounded,
-                  color: Styles.colorRed,
-                  size: Styles.container40,
+              if (index != 0)
+                IconButton(
+                  onPressed: () {
+                    stateStore.removeFromMessageModelList(
+                        stateStore.messageModelsList.elementAt(index));
+                  },
+                  icon: const Icon(
+                    Icons.remove_circle_rounded,
+                    color: Styles.colorRed,
+                    size: Styles.container40,
+                  ),
                 ),
-              ),
               const SizedBox(
                 width: Styles.padding20,
               ),
