@@ -15,7 +15,7 @@ import 'package:wisher/utils/widget_style.dart';
 import 'package:wisher/widgets/app_bar.dart';
 import 'package:wisher/widgets/app_dialog.dart';
 import 'package:wisher/widgets/error_card.dart';
-import 'package:wisher/widgets/firebase_image.dart';
+import 'package:wisher/widgets/image_widget_with_backdrop.dart';
 import 'package:wisher/widgets/message_card.dart';
 
 class UserInputScreen extends StatefulWidget {
@@ -274,12 +274,12 @@ class _UserInputScreenState extends State<UserInputScreen> {
           alignment: Alignment.center,
           children: [
             if (widget.imageUrl != null && widget.imageProvider == null)
-              ImageWidget(
+              ImageWidgetWithBackdrop(
                 imageProvider: FileImage(File(widget.imageUrl)),
                 boxFit: BoxFit.contain,
               ),
             if (widget.imageProvider != null && widget.imageUrl != null)
-              ImageWidget(
+              ImageWidgetWithBackdrop(
                 imageProvider: widget.imageProvider,
                 boxFit: BoxFit.fill,
               ),

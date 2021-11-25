@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:wisher/utils/widget_style.dart';
 
-class ImageWidget extends StatelessWidget {
-  const ImageWidget({
+class ImageWidgetWithBackdrop extends StatelessWidget {
+  const ImageWidgetWithBackdrop({
     Key key,
     @required this.imageProvider,
     @required this.boxFit,

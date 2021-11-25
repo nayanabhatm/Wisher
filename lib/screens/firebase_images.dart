@@ -6,7 +6,7 @@ import 'package:wisher/screens/user_input.dart';
 import 'package:wisher/utils/constants.dart';
 import 'package:wisher/widgets/app_bar.dart';
 import 'package:wisher/widgets/error_card.dart';
-import 'package:wisher/widgets/firebase_image.dart';
+import 'package:wisher/widgets/image_widget.dart';
 import 'package:wisher/widgets/place_holder_image.dart';
 import 'package:wisher/widgets/progress_indicator.dart';
 
